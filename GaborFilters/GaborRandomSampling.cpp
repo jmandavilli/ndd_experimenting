@@ -62,4 +62,9 @@ Random GaborRandomSampling(int n=1, double galpha=3, double gbeta=1, double igal
   return sampling;
 }
 
-int main(){}
+// namespace py = pybind11;
+
+// PYBIND11_MODULE(GaborRandomSampling, m) {
+// m.doc() = "GaborRandomSampling";
+// m.def("GaborRandomSampling", &GaborRandomSampling, "Function to randomly samply hyperparameters of a gabor filter");
+// }

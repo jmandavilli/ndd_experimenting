@@ -47,4 +47,9 @@ std::vector<std::vector<std::vector<double>>> GaborBank(int p, int d, int ih, in
   return bank;
 }
 
-int main(){}
+// namespace py = pybind11;
+
+// PYBIND11_MODULE(GaborBank, m) {
+// m.doc() = "GaborBank";
+// m.def("GaborBank, &GaborBank", "Function to create bank of gabor filters");
+// }
