@@ -5,6 +5,7 @@
 #include <math.h>
 #include <vector>
 #include <random>
+#include <assert.h>
 #define PI 3.1415926535897932384626433832795
 
 using namespace std;
@@ -60,6 +61,13 @@ Random GaborRandomSampling(int n=1, double galpha=3, double gbeta=1, double igal
   sampling.tau = cpprunif(n, 0, 2 * PI);
 
   return sampling;
+}
+
+int main() {
+  Random sample = GaborRandomSampling();
+  assert(sample.alpha == 1);
+  assert(sample.tau.size() > 0);
+  assert(sample.betay.size() > 0);
 }
 
 // namespace py = pybind11;
