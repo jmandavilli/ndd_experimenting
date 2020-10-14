@@ -1,26 +1,27 @@
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
+// #include <pybind11/pybind11.h>
+// #include <pybind11/stl.h>
 
 #include <cmath>
 #include <math.h>
 #include <vector>
-#include <boost/math/constants/constants.hpp>
+#include <random>
+#define PI 3.1415926535897932384626433832795
 
-using namespace std
+using namespace std;
 
 class Random {
 public:
   int alpha;
-  std::vector<std::vector<double>> betax
-  std::vector<std::vector<double>> betay
-  std::vector<std::vector<double>> f
-  std::vector<std::vector<double>> phi
-  std::vector<std::vector<double>> x0
-  std::vector<std::vector<double>> y0
-  std::vector<std::vector<double>> tau
+  std::vector<double> betax;
+  std::vector<double> betay;
+  std::vector<double> f;
+  std::vector<double> phi;
+  std::vector<double> x0;
+  std::vector<double> y0;
+  std::vector<double> tau;
 };
 
-std::vector<std::vector<double>> cpprinvgamma(int n, double shape, double scale) {
+std::vector<double> cpprinvgamma(int n, double shape, double scale) {
   std::default_random_engine generator;
   std::gamma_distribution<double> distribution(shape, scale);
   std::vector<double> out;
@@ -33,7 +34,7 @@ std::vector<std::vector<double>> cpprinvgamma(int n, double shape, double scale)
   return out;      
 }
 
-std::vector<std::vector<double>> cpprunif(int n, double min, double max) {
+std::vector<double> cpprunif(int n, double min, double max) {
   std::default_random_engine generator;
   std::uniform_real_distribution<double> distribution(min, max);
   std::vector<double> out;
@@ -47,16 +48,18 @@ std::vector<std::vector<double>> cpprunif(int n, double min, double max) {
   return out;
 }
 
-Random GaborRandomSampling(int n=1, double galpha=3, double gbeta=1, double igalpha=1, double igbeta=0.5, double iw) {
+Random GaborRandomSampling(int n=1, double galpha=3, double gbeta=1, double igalpha=1, double igbeta=0.5, double iw=1) {
   Random sampling;
   sampling.alpha = 1;
   sampling.betax = cpprinvgamma(n, igalpha, igbeta);
   sampling.betay = cpprinvgamma(n, igalpha, igbeta);
   sampling.f = cpprunif(n, floor(iw/2), 8*iw);
-  sampling.phi = cpprunif(n, 0, 2 * boost::math::constants::pi<T>());
+  sampling.phi = cpprunif(n, 0, 2 * PI);
   sampling.x0 = cpprunif(n, -2.5, 2.5);
   sampling.y0 = cpprunif(n, -2.5, 2.5);
-  sampling.tau = cpprunif(n, 0, 2 * boost::math::constants::pi<T>());
+  sampling.tau = cpprunif(n, 0, 2 * PI);
 
   return sampling;
 }
+
+int main(){}
