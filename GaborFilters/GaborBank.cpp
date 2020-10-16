@@ -10,7 +10,7 @@
 
 using namespace std;
 
-std::vector<std::vector<std::vector<double>>> GaborBank(int p, int d, int ih, int iw) {
+std::vector<std::vector<std::vector<double>>> GaborBank(int p, int d, int ih, int iw, double tol) {
 
   // need to add checks so not dividing by 0
   std::vector<std::vector<std::vector<double>>> bank;
@@ -39,11 +39,47 @@ std::vector<std::vector<std::vector<double>>> GaborBank(int p, int d, int ih, in
 
   // need to integrate with Parth's code from here on
   for(int k = 0; k < d; k++) {
+
+    // Not sure what to do with arguments, conflicting in R code too
     bank.push_back(gabor());
   }
 
+  /*
+  NZ nzinstance;
+  std::vector<int> row;
+  std::vector<int> column;
+
+  for(int i = 1; i <= p; i++) {
+    row.push_back(i);
+  }
+
+  for(int k = 0; k < d; k++) {
+    auto old_size = row.size();
+    row.resize(2 * old_size);
+    std::copy_n(row.begin(), old_size, row.begin() + old_size);
+  }
+  nzinstance.rows = row;
+
+  for(int j = 1; j <= d; j++) {
+    for(int m = 0; m < d; m++) {      
+      column.push_back(j);
+    }
+  }
+  nzinstance.cols = column;
+  */
   
-  
+  // implementing reduce, need to check, also very inneficient
+  std::vector<double> w;
+  for(std::vector<std::vector<std::vector<double>>>::iterator i = bank.begin(); i != bank.end(); ++i) {
+    for(std::vector<std::vector<double>>::iterator j = i->begin(); j != i->end(); ++j) {
+      for(std::vector<double>::iterator k = j->begin(); k != j->end(); ++k) {
+	if ((*k <= tol) && (*k >= tol)) {
+	  *k = 0;
+	}
+      }
+    }
+  }
+
   return bank;
 }
 
