@@ -43,30 +43,6 @@ std::vector<std::vector<std::vector<double>>> GaborBank(int p, int d, int ih, in
     // Not sure what to do with arguments, conflicting in R code too
     bank.push_back(gabor());
   }
-
-  /*
-  NZ nzinstance;
-  std::vector<int> row;
-  std::vector<int> column;
-
-  for(int i = 1; i <= p; i++) {
-    row.push_back(i);
-  }
-
-  for(int k = 0; k < d; k++) {
-    auto old_size = row.size();
-    row.resize(2 * old_size);
-    std::copy_n(row.begin(), old_size, row.begin() + old_size);
-  }
-  nzinstance.rows = row;
-
-  for(int j = 1; j <= d; j++) {
-    for(int m = 0; m < d; m++) {      
-      column.push_back(j);
-    }
-  }
-  nzinstance.cols = column;
-  */
   
   // implementing reduce, need to check, also very inneficient
   std::vector<double> w;
